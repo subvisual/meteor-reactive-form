@@ -1,0 +1,27 @@
+<head>
+  <title>Reactive Form Example</title>
+</head>
+
+<body>
+  <h1>Here you have a reactive, complex, form</h1>
+
+  {{> form}}
+</body>
+
+<template name="form">
+  {{> inputText name=nameKey form=reactiveForm }}
+
+  {{#each ageList}}
+    {{> radioItem name=../ageKey form=reactiveForm }}
+  {{/each}}
+
+  {{#if name}}<h2>{{ name }}</h2>{{/if}}
+</template>
+
+<template name="inputText">
+  <input type="text" name="{{ name }}" value="{{ value }}" placeholder="Type something">
+</template>
+
+<template name="radioItem">
+  <input type="radio" name="{{ name }}" value="{{ value }}" placeholder="Type something">
+</template>
