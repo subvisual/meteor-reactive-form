@@ -79,3 +79,19 @@ if Meteor.isClient
     reactiveForm.set('two', 'random')
 
     test.isFalse(reactiveForm.valid(['one']))
+
+  Tinytest.add 'it returns a curry set function', (test) ->
+    reactiveForm = new ReactiveForm
+
+    f = reactiveForm.setCurry('key')
+    f('value')
+
+    test.equal(reactiveForm.get('key'), 'value')
+
+  Tinytest.add 'it returns a curry get function', (test) ->
+    reactiveForm = new ReactiveForm
+    reactiveForm.set('key', 'value')
+
+    f = reactiveForm.getCurry('key')
+
+    test.equal(f(), 'value')

@@ -14,9 +14,17 @@ class @ReactiveForm
     @dep.depend()
     @map[key]
 
+  getCurry: (key) =>
+    return =>
+      @get(key)
+
   set: (key, value) =>
-    @map[key] = value
     @dep.changed()
+    @map[key] = value
+
+  setCurry: (key) =>
+    return (value) =>
+      @set(key, value)
 
   valid: (keys) =>
     if !_.isArray(keys)
@@ -25,7 +33,7 @@ class @ReactiveForm
       @map[key] != @constructor._emptyState
 
   clean: (keys) =>
+    @dep.changed()
     if !_.isArray(keys)
       keys = Object.keys(@map)
     @map[key] = @constructor._emptyState for key in keys
-    @dep.changed()
